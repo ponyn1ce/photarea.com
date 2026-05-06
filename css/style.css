@@ -402,3 +402,234 @@ html,body{
           border-radius: 20px;
         }
 }
+
+
+
+      /* вернуть горизонтальное расположение и центрировать меню */
+      nav{flex:0 0 auto;display:flex;justify-content:center;}
+      .nav-links{display:flex;align-items:center;gap:14px;}
+      .nav-links a{color:var(--link-muted);text-decoration:none;font-weight:600;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:4px}
+      .nav-links a:hover{color:var(--accent-text)}
+      .nav-icon{display:none;width:20px;height:20px;object-fit: contain;}
+      .nav-links a:hover .nav-icon{opacity: 0.8;}
+
+
+      /* language trigger styling */
+      .lang{position:relative;display:flex;align-items:center;margin: 0;}
+      .lang-toggle{background:none;border:none;color:var(--link-muted);font-weight:600;font-size:14px;cursor:pointer;padding:6px 4px;display:flex;align-items:center;gap:8px}
+      .lang-toggle:hover{color:var(--accent-text)}
+      /* center dropdown under the toggle; increased width to fit labels when shown in toggle */
+      .lang-menu{position:absolute;top:calc(100% + 17px);left:50%;transform:translateX(-50%);min-width:130px;
+        /* полупрозрачный фон с блюром */
+        background: rgba(255,255,255,0.32);
+        backdrop-filter: blur(8px) saturate(110%);
+        border-radius:10px;
+        border:1px solid rgba(255,255,255,0.6);
+        box-shadow:0 6px 18px rgba(12,35,50,0.06);
+        /* уменьшил боковые отступы меню примерно в 2 раза */
+        padding:6px 2px;display:none;flex-direction:column;z-index:3}
+      .lang-menu.open{display:flex}
+      /* компактные боковые отступы у пунктов: ~5-10px слева/справа */
+      .lang-item{background:transparent;border:none;padding:8px 6px;text-align:center;cursor:pointer;font-weight:450;color:var(--accent-text);border-radius:6px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px}
+      .lang-item .code{font-weight:700;color:var(--accent-text);min-width:auto;text-align:center}
+      .lang-item .label{color:var(--link-muted);font-weight:450;text-align:center}
+      .lang-item:hover{background:rgba(255,255,255,0.14)}
+      .lang-item.selected{background:rgba(0,0,0,0.06)}
+
+      /* сдвинем кнопку на ~10px вправо и увеличим радиус */
+      .cta{flex:0 0 auto;}
+      .cta .btn{
+        background: var(--button-bg);
+        color:#fff;
+        padding:10px 30px;
+        border-radius:34px; /* увеличено примерно в 2 раза */
+        border: none;
+        font-weight:600;
+        font-size:14px;
+        box-shadow: 0 6px 14px rgba(17,17,17,0.14), inset 0 -2px 4px rgba(255,255,255,0.03);
+        cursor: pointer;
+      }
+      .cta .btn:active{transform:translateY(1px)}
+
+            .hero-cta .btn{
+        background:var(--button-bg);
+        color:#fff;
+        padding:14px 48px;
+        border-radius:45px;
+        border:0;
+        font-weight:700;
+        font-size:15px;
+        box-shadow:0 8px 20px rgba(17,17,17,0.16);
+      }
+    
+
+      /* Responsive spacing adjustments */
+      @media (max-width:1200px){
+        .panel{width: fit-content; max-width: 95%; padding: 8px 15px; border-radius: 40px; gap: 12px;}
+        .panel:before{border-radius: 40px;}
+        .brand{display:none;}
+        .nav-links{gap: 12px;}
+        .nav-links a span{font-size: 10px;}
+        .cta .btn{padding: 8px 15px; font-size: 12px;}
+      }
+
+      @media (max-width:720px){
+        .panel{padding:11px 20px; gap: 15px; width: 90%; min-width: auto; max-width: 70%; top: 15px; border-radius: 50px;}
+        .panel:before{border-radius: 50px;}
+        .brand{display:none;}
+        .nav-links{gap: 15px}
+        .nav-links a span{display:none;}
+        .nav-icon{display:block; width: 28px; height: 28px;}
+        .lang{margin: 0;}
+        .lang-toggle{font-size: 18px;}
+        .cta{display:none;}
+      }
+
+      @keyframes mascotFloat{
+        0%{transform:translate(-50%,-50%) translateY(0)}
+        50%{transform:translate(-50%,-50%) translateY(-30px)}
+        100%{transform:translate(-50%,-50%) translateY(0)}
+      }
+
+      
+      /* FAQ styles */
+
+      .faq-section{
+        width: min(1000px, 88%);
+        /* фиксируем FAQ по центру экрана */
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        display: grid;
+        grid-template-columns: repeat(2, minmax(280px, 1fr));
+        gap: 5px 18px; /* rows gap 5px, columns gap 18px */
+        align-items: start; /* prevent row items from stretching to same height */
+        font-family: inherit;
+        margin: 0;
+        z-index: 20;
+      }
+
+      .faq-panel{width:100%; display:flex; flex-direction:column; align-self:start}
+
+      /* move left/right columns outward by 8px (visual shift) */
+      .faq-panel:nth-child(odd){ transform: translateX(-8px); }
+      .faq-panel:nth-child(even){ transform: translateX(8px); }
+
+      @media (max-width:720px){
+        .faq-panel:nth-child(odd), .faq-panel:nth-child(even){ transform: none; }
+      }
+
+      @media (max-width:920px){
+        .faq-section{grid-template-columns: repeat(2, 1fr); width:94%;}
+      }
+
+      @media (max-width:720px){
+        /* Mobile: stack panels in a single column */
+        .faq-section{grid-template-columns:1fr;width:94%;padding:0 10px;box-sizing:border-box}
+        .faq-panel{transform:none;padding:12px;min-width:0;box-sizing:border-box}
+        .faq-body p{font-size:16px;line-height:1.5;word-break:break-word;overflow-wrap:break-word}
+      }
+
+      @media (max-width:700px){
+        /* Mobile: let FAQ flow normally so social links move down on expand */
+        .faq-section{position:relative;left:auto;top:auto;transform:none;max-height:none;overflow:visible;margin:120px auto 0;width:94%;}
+      }
+
+      .faq-panel{
+        background: linear-gradient(180deg, rgba(255,255,255,0.48), rgba(255,255,255,0.34));
+        border: .3px solid var(--nav-border);
+        border-radius: 22px;
+        padding: 6px 8px;
+        box-shadow: 0 5px 22px rgba(19,55,85,0.06);
+        backdrop-filter: blur(8px) saturate(110%);
+        overflow: visible;
+      }
+
+      .faq-header{
+        cursor: pointer;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        padding:10px 14px;
+        font-weight:700;
+        color:var(--accent-text);
+        user-select:none;
+      }
+
+      .faq-body{
+        overflow:hidden;
+        max-height:0;
+        transition: max-height 320ms cubic-bezier(.2,.9,.3,1), padding 260ms ease, opacity 260ms ease;
+        padding:0 14px;
+        opacity:0;
+      }
+
+      .faq-body.open{ /* open state */
+        opacity:1;
+        padding:12px 14px 18px 14px;
+      }
+
+      .faq-body p{
+        text-indent:1.2em; /* "красная строка" — отступ первой строки */
+        margin:0 0 1em 0; /* одна строка пропуска между абзацами */
+        line-height:1.6;
+        color: #0b1220;
+      }
+
+      .faq-body p::first-line{ /* первая строка: наследует основной цвет (красный удалён) */
+        color: inherit;
+      }
+
+      .faq-toggle-indicator{
+        width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(0,0,0,0.04);font-weight:700;color:var(--accent-text)
+      }
+
+
+
+          .social-links {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        display: flex;
+        gap: 0.6rem;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0 30px 0;
+        margin-top: auto;
+        z-index: 10;
+      }
+
+      .social-links a {
+        display:inline-flex;
+        justify-content:center;
+        align-items:center;
+        margin: 0 0.4rem;
+        width: 3.2rem;
+        height: 3.2rem;
+        line-height: 1;
+        background-color: #000000;
+        text-decoration: none;
+        border-radius: 50%;
+        color: #ffffff;
+        font-size: 1.6rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: transform .12s ease, background-color .12s ease, color .12s ease;
+        cursor: pointer;
+      }
+
+      .social-links a:hover{
+        transform: translateY(-3px);
+        background-color: var(--main-clr, #ffffff);
+        color: #000000;
+        box-shadow: 0 6px 18px rgba(11,24,40,0.14);
+      }
+
+      @media (max-width:700px){
+        .social-links{bottom:auto;gap:0.45rem; padding: 30px 0 20px 0; margin-top: auto;}
+        .social-links a{width:3rem;height:3rem;font-size:2rem}
+      }
+
+

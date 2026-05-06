@@ -12,11 +12,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/public.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <script src="../js/lang.js"></script>
 <script src="../js/auth.js"></script>
+<script scr="../index.js"></script>
 <title>Photarea</title>
 </head>
 <body>
@@ -67,23 +70,14 @@
       <button class="btn" data-i18n="top_cta" onclick="window.location.href='html/album-guide.html'">Tap to create</button>
     </div>
 
-        <!--
-    <div class="burger-lang">
-      <div class="burger-lang-title">Language</div>
-      <div class="burger-lang-items">
-        <button class="burger-lang-item selected" data-lang="EN">EN - English</button>
-        <button class="burger-lang-item" data-lang="DE">DE - Deutsch</button>
-        <button class="burger-lang-item" data-lang="RU">RU - Русский</button>
-        <button class="burger-lang-item" data-lang="UA">UA - Українська</button>
-      </div>
-    </div>
-    -->
+  </header>
 
+  <!-- Hero section — full viewport height, visually identical to original -->
+  <section class="hero-section">
     <div class="hero-main">
       <p class="texthome">PHOTAREA</p>
       <img class="mascot" src="pushistik-2.0.png" alt="puschistik">
     </div>
-
     <div class="hero-copy" aria-hidden="false">
       <p class="hero-title" data-i18n="hero_title">Create, keep, and relive your memories</p>
       <p class="hero-sub" data-i18n="hero_sub">Give yourself and your loved ones the freedom to dive back into your <br> brightest memories whenever the heart calls.</p>
@@ -91,10 +85,13 @@
         <button class="btn" data-i18n="get_project" id="tapToCreate">Get Project</button>
       </div>
     </div>
-  </header>
+  </section>
+
+  <!-- Thin black divider -->
+  <div class="section-divider"></div>
 
   <main>
-    <div class="faq-panel-main">
+    <section class="faq-section" aria-label="FAQ">
       <section class="faq-panel" aria-labelledby="faq1">
         <div class="faq-header" id="faq1" role="button" aria-controls="faq1-desc" aria-expanded="false">
           <span data-i18n="faq_q1_title">Как оформить заказ?</span>
@@ -159,8 +156,49 @@
             В ближайшее время планируется расширение доставки по всей Австрии.</p>
         </div>
       </section>
+    </section>
+
+    <div class="social-links">
+      <a href="https://t.me/Photareabot" target="_blank" class="fab fa-telegram"></a>
+      <a href="https://www.instagram.com/photarea.at/" target="_blank" class="fab fa-instagram"></a>
+      <a href="https://wa.me/+79267020012" target="_blank" class="fab fa-whatsapp"></a>
     </div>
   </main>
 </div>
+
+<script>
+  (function(){
+    const headers = Array.from(document.querySelectorAll('.faq-header'));
+    function closeBody(body){
+      const panel = body.closest('.faq-panel');
+      const header = panel.querySelector('.faq-header');
+      const indicator = header.querySelector('.faq-toggle-indicator');
+      body.classList.remove('open');
+      body.style.maxHeight = '0px';
+      body.setAttribute('aria-hidden','true');
+      header.setAttribute('aria-expanded','false');
+      if(indicator) indicator.textContent = '+';
+    }
+    headers.forEach(h=>{
+      h.addEventListener('click', ()=>{
+        const panel = h.closest('.faq-panel');
+        const body = panel.querySelector('.faq-body');
+        const indicator = h.querySelector('.faq-toggle-indicator');
+        const isOpen = body.classList.contains('open');
+        if(!isOpen){
+          document.querySelectorAll('.faq-body.open').forEach(b=>{ if(b!==body) closeBody(b); });
+          body.classList.add('open');
+          body.style.maxHeight = body.scrollHeight + 'px';
+          body.setAttribute('aria-hidden','false');
+          h.setAttribute('aria-expanded','true');
+          if(indicator) indicator.textContent = '−';
+        } else {
+          closeBody(body);
+        }
+      });
+      h.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();h.click();} });
+    });
+  })();
+</script>
 </body>
 </html>
