@@ -171,3 +171,86 @@
         if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', updateStatus);
         else updateStatus();
       })();
+
+
+
+      // скрипт для фага, взятый прямяком с html страницы.
+       (function(){
+          const toggle = document.querySelector('.lang-toggle');
+          const menu = document.querySelector('.lang-menu');
+          const items = Array.from(document.querySelectorAll('.lang-item'));
+          if(!toggle || !menu) return;
+          function close(){ menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+          function open(){ menu.classList.add('open'); toggle.setAttribute('aria-expanded','true'); }
+
+          // initialize toggle text from selected item
+          const current = items.find(i=> i.classList.contains('selected')) || items[0];
+          if(current){
+            const code = current.dataset.lang || current.textContent.trim();
+            // show only code in the top toggle
+            toggle.textContent = code;
+          }
+
+          toggle.addEventListener('click', (e)=>{
+            const isOpen = menu.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', isOpen);
+          });
+
+          items.forEach(i=> i.addEventListener('click', (e)=>{
+            const lang = i.dataset.lang || i.textContent.trim();
+            // update toggle to show code only
+            toggle.textContent = lang;
+            // mark selected
+            items.forEach(x=> x.classList.remove('selected'));
+            i.classList.add('selected');
+            close();
+            // Apply language change
+            if(window.setSiteLanguage) window.setSiteLanguage(lang);
+          }));
+
+          document.addEventListener('click', (e)=>{
+            if(!menu.contains(e.target) && !toggle.contains(e.target)) close();
+          });
+          document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
+        })();
+
+          // Robust logo navigation: try several candidate paths and pick the one that exists (helps with different dev server roots)
+        (function(){
+          const logo = document.querySelector('.logo');
+          if(!logo) return;
+
+          async function tryPaths(paths){
+            for(const p of paths){
+              try{
+                const res = await fetch(p, {method: 'GET', cache: 'no-store'});
+                if(res && res.ok) return p;
+              }catch(e){
+                // ignore network errors
+              }
+            }
+            return null;
+          }
+
+          logo.addEventListener('click', async function(e){
+            // allow normal ctrl/cmd click or middle-click to open in new tab
+            if(e.metaKey || e.ctrlKey || e.button === 1) return;
+            e.preventDefault();
+
+            const href = logo.getAttribute('href');
+            const candidates = [];
+            if(href) candidates.push(href);
+            // common fallbacks
+            candidates.push('../index.html');
+            candidates.push('/index.html');
+            candidates.push('/photarea/index.html');
+
+            const found = await tryPaths(candidates);
+            if(found){
+              window.location.href = found;
+            } else {
+              // fallback: go to parent-relative path and let the server show its 404 if still missing
+              console.warn('Home page not found on known paths, navigating to parent index by default');
+              window.location.href = '../index.html';
+            }
+          });
+        })();
