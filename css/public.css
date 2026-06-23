@@ -57,25 +57,23 @@
 body{
  width: 100vw;
  height: 100vh;
+ overflow-x: hidden;
+ overflow-y: scroll;
+ scroll-snap-type: y mandatory;
  margin:0;
  font-family: 'Poppins', "Inter","Noto Sans Arabic","Roobert","Helvetica Neue",Helvetica,Arial,sans-serif, -apple-systemн;
- background: linear-gradient(180deg,var(--bg1) 0%, 40%,var(--bg3) 100%);
+ background: var(--bg3);
  -webkit-font-smoothing:antialiased;
  -moz-osx-font-smoothing:grayscale;
- display:flex;
- align-items:flex-start;
- justify-content:center;
- padding:0 20px; /* remove vertical padding to avoid extra scroll */
- overflow-x:hidden;
+ display:block;
 }
 
 
 .container{
-display: grid;
-width: 96%;
-margin: 0 auto;
-gap: 1.8rem;
-grid-template-columns: 14rem auto 23rem;
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+ margin: 0 auto;
 }
 
 a{

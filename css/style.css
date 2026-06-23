@@ -1,19 +1,74 @@
-html,body{
- height:100%;
+/* ============================================
+   Single-page scrollable layout
+   ============================================ */
+html {
+  height: 100%;
 }
 
-/* надпись под маскотом mascot GIF */
+body {
+  min-height: 100vh;
+  height: auto;
+  overflow-y: unset;
+  display: block;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-section {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 20px;
+  background: linear-gradient(180deg, var(--bg1) 0%, var(--bg3) 100%);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  height: 100vh;
+  padding: 60px 0;
+  width: 100%;
+  background: linear-gradient(180deg, var(--bg3) 0%, var(--bg1) 100%);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow-y: auto;
+}
+
+/* надпись под маскотом */
 .hero-copy{
- position:fixed;
- left:50%;
- top:75%;
- transform:translateX(-50%);
+ position: relative;
  text-align:center;
  width:100%;
- max-width:30rem;
- padding:5rem 20px;
+ max-width:36rem;
+ padding: 0 20px 1rem;
  z-index:60;
  pointer-events:auto;
+ margin: 0 auto;
 }
 
 .mascot{
@@ -25,7 +80,7 @@ html,body{
  user-select: none;
  will-change: transform;
  animation: mascotFloat 3s ease-in-out infinite;
- margin-bottom: 7rem; /* Подтягиваем нижний текст ближе к гифке */
+ margin-bottom: 1rem;
 }
 
 .panel{
@@ -236,17 +291,14 @@ html,body{
 
       /* centered mascot and background text container */
       .hero-main {
-        position: fixed;
-        left: 50%;
-        top: calc(50% + 10px);
-        transform: translate(-50%, -50%);
+        position: relative;
         z-index: 50;
         display: flex;
         align-items: center;
         justify-content: center;
         pointer-events: none;
         width: 100%;
-        height: auto;
+        min-height: 50vh;
       }
 
       @keyframes mascotFloat{
@@ -293,8 +345,9 @@ html,body{
           flex-direction: column;
           align-items: center;
           justify-content: flex-start;
-          overflow: hidden;
-          height: 100vh;
+          overflow-y: auto;
+          height: auto;
+          min-height: 100vh;
           padding: 0;
           margin: 0;
           position: relative;
@@ -324,6 +377,12 @@ html,body{
         .cta{display:none;}
 
         /* Flex container for Text and Mascot */
+        .hero-section {
+          padding-top: 70px;
+          padding-bottom: 20px;
+          justify-content: flex-start;
+        }
+
         .hero-main {
           position: relative;
           top: auto;
@@ -334,8 +393,8 @@ html,body{
           align-items: center;
           justify-content: center;
           width: 100%;
-          margin-top: 65px; /* Space for header - reduced to show content higher */
-          flex: 1; /* Take available space */
+          min-height: auto;
+          flex: none;
           pointer-events: none;
         }
 
@@ -377,9 +436,9 @@ html,body{
           left: auto;
           transform: none;
           width: 100%;
-          margin: -1px 0 0 0; /* Negative margin to bring content higher */
+          margin: 0;
           z-index: 10;
-          padding: 0 20px 120px 20px;
+          padding: 0 20px 30px 20px;
           box-sizing: border-box;
           text-align: center;
         }
@@ -486,9 +545,9 @@ html,body{
       }
 
       @keyframes mascotFloat{
-        0%{transform:translate(-50%,-50%) translateY(0)}
-        50%{transform:translate(-50%,-50%) translateY(-30px)}
-        100%{transform:translate(-50%,-50%) translateY(0)}
+        0%{transform:translateY(0)}
+        50%{transform:translateY(-20px)}
+        100%{transform:translateY(0)}
       }
 
       
@@ -496,17 +555,13 @@ html,body{
 
       .faq-section{
         width: min(1000px, 88%);
-        /* фиксируем FAQ по центру экрана */
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%,-50%);
+        position: relative;
         display: grid;
         grid-template-columns: repeat(2, minmax(280px, 1fr));
-        gap: 5px 18px; /* rows gap 5px, columns gap 18px */
-        align-items: start; /* prevent row items from stretching to same height */
+        gap: 12px 18px;
+        align-items: start;
         font-family: inherit;
-        margin: 0;
+        margin: 0 auto;
         z-index: 20;
       }
 
@@ -533,7 +588,7 @@ html,body{
 
       @media (max-width:700px){
         /* Mobile: let FAQ flow normally so social links move down on expand */
-        .faq-section{position:relative;left:auto;top:auto;transform:none;max-height:none;overflow:visible;margin:120px auto 0;width:94%;}
+        .faq-section{position:relative;left:auto;top:auto;transform:none;max-height:none;overflow:visible;margin:0 auto;width:94%;}
       }
 
       .faq-panel{
@@ -548,14 +603,30 @@ html,body{
 
       .faq-header{
         cursor: pointer;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:12px;
-        padding:10px 14px;
-        font-weight:700;
-        color:var(--accent-text);
-        user-select:none;
+        display: grid;
+        grid-template-columns: 22px 1fr 22px;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        min-height: 64px;
+        font-weight: 700;
+        color: var(--accent-text);
+        user-select: none;
+      }
+
+      /* invisible left spacer — mirrors the + indicator on the right */
+      .faq-header::before {
+        content: '';
+        display: block;
+        width: 22px;
+        height: 22px;
+      }
+
+      /* center the question text */
+      .faq-header > span:first-child {
+        text-align: center;
+        font-size: 1.4rem;
+        line-height: 2rem;
       }
 
       .faq-body{
@@ -598,7 +669,6 @@ html,body{
         justify-content: center;
         align-items: center;
         padding: 20px 0 30px 0;
-        margin-top: auto;
         z-index: 10;
       }
 
@@ -628,7 +698,7 @@ html,body{
       }
 
       @media (max-width:700px){
-        .social-links{bottom:auto;gap:0.45rem; padding: 30px 0 20px 0; margin-top: auto;}
+        .social-links{bottom:auto;gap:0.45rem; padding: 30px 0 20px 0;}
         .social-links a{width:3rem;height:3rem;font-size:2rem}
       }
 
