@@ -3,6 +3,7 @@
    ============================================ */
 html {
   height: 100%;
+  scroll-behavior: smooth; /*для более плавного переключения по секциям*/
 }
 
 body {
@@ -554,51 +555,70 @@ main {
       /* FAQ styles */
 
       .faq-section{
-        width: min(1000px, 88%);
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(280px, 1fr));
-        gap: 12px 18px;
-        align-items: start;
+        width: 1250px;
+        display: flex;
+        flex-direction: row;
+        gap: 18px;
         font-family: inherit;
         margin: 0 auto;
         z-index: 20;
       }
 
-      .faq-panel{width:100%; display:flex; flex-direction:column; align-self:start}
-
-      /* move left/right columns outward by 8px (visual shift) */
-      .faq-panel:nth-child(odd){ transform: translateX(-8px); }
-      .faq-panel:nth-child(even){ transform: translateX(8px); }
-
-      @media (max-width:720px){
-        .faq-panel:nth-child(odd), .faq-panel:nth-child(even){ transform: none; }
-      }
-
-      @media (max-width:920px){
-        .faq-section{grid-template-columns: repeat(2, 1fr); width:94%;}
-      }
-
-      @media (max-width:720px){
-        /* Mobile: stack panels in a single column */
-        .faq-section{grid-template-columns:1fr;width:94%;padding:0 10px;box-sizing:border-box}
-        .faq-panel{transform:none;padding:12px;min-width:0;box-sizing:border-box}
-        .faq-body p{font-size:16px;line-height:1.5;word-break:break-word;overflow-wrap:break-word}
-      }
-
-      @media (max-width:700px){
-        /* Mobile: let FAQ flow normally so social links move down on expand */
-        .faq-section{position:relative;left:auto;top:auto;transform:none;max-height:none;overflow:visible;margin:0 auto;width:94%;}
+      .faq-col{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
       }
 
       .faq-panel{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 115px;
+        overflow: hidden;
         background: linear-gradient(180deg, rgba(255,255,255,0.48), rgba(255,255,255,0.34));
         border: .3px solid var(--nav-border);
         border-radius: 22px;
         padding: 6px 8px;
         box-shadow: 0 5px 22px rgba(19,55,85,0.06);
         backdrop-filter: blur(8px) saturate(110%);
+        box-sizing: border-box;
+      }
+
+      /* open panel grows freely, neighbour in other column is unaffected */
+      .faq-panel:has(.faq-body.open){
+        height: auto;
         overflow: visible;
+      }
+
+      /* move left/right columns outward by 8px (visual shift) */
+      .faq-col:first-child{ transform: translateX(-8px); }
+      .faq-col:last-child{ transform: translateX(8px); }
+
+      @media (max-width:720px){
+        .faq-col:first-child, .faq-col:last-child{ transform: none; }
+      }
+
+      @media (max-width:920px){
+        .faq-section{width:94%;}
+      }
+
+      @media (max-width:720px){
+        /* Mobile: single column */
+        .faq-section{flex-direction:column;width:94%;padding:0 10px;box-sizing:border-box;}
+        .faq-col{width:100%;}
+        .faq-panel{height:auto; padding:12px; min-width:0; box-sizing:border-box;}
+        .faq-body p{font-size:16px;line-height:1.5;word-break:break-word;overflow-wrap:break-word}
+      }
+
+      @media (max-width:700px){
+        .faq-section{margin:0 auto;width:94%;}
+      }
+
+      .faq-panel{
+        box-sizing: border-box;
       }
 
       .faq-header{
@@ -622,7 +642,7 @@ main {
         height: 22px;
       }
 
-      /* center the question text */
+      /* question text — left-aligned as in reference */
       .faq-header > span:first-child {
         text-align: center;
         font-size: 1.4rem;
