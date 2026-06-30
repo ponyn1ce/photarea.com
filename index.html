@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <script src="js/lang.js"></script>
-<script src="js/auth.js"></script>
 <script src="index.js"></script>
+<script src="js/products.js" defer></script>
 <title>Photarea</title>
 </head>
 <body>
@@ -55,7 +55,7 @@
           <img src="icon/free-icon-font-lightbulb-question-10469137.png" class="nav-icon" alt="">
           <span data-i18n="nav_faq">FAQ</span>
         </a>
-        <a href="html/product.html">
+        <a href="html/catalog.html">
           <img src="icon/free-icon-font-sparkles-17511706.png" class="nav-icon" alt="">
           <span data-i18n="nav_products">products</span>
         </a>
@@ -161,6 +161,72 @@
 
 
   </main>
+
+  <!-- Products Section -->
+  <section class="products-section" id="products-section" aria-label="Products">
+
+    <div id="shopAlert" class="shop-alert" role="status" aria-live="polite" hidden></div>
+
+    <section id="shop-products">
+      <article class="shop-card" data-shop-id="1" data-desc="Минималистичный фотокнига-альбом: плотная матовая обложка, 24 разворота, печать премиум-класса." data-images="/photo/photo_2026-01-04_17-44-36.jpg,/photo/photo_2026-01-04_18-20-48.jpg" data-rating="4.7" data-reviews="5 806 отзывов" tabindex="0">
+        <div class="shop-media">
+          <img src="photo/photo_2026-01-04_17-44-36.jpg" alt="product 1" onerror="this.onerror=null;this.src='https://via.placeholder.com/260x170?text=Product+1';" />
+          <button class="shop-fav" aria-label="add to wishlist">&#9825;</button>
+          <span class="shop-badge">Распродажа</span>
+        </div>
+        <div class="shop-body">
+          <h3 class="shop-title">Альбом Простой</h3>
+          <div class="shop-price"><strong>99€</strong> <small class="old">2.400€</small></div>
+          <div class="shop-meta">⭐ 4.7 • 5 806 отзывов</div>
+        </div>
+      </article>
+
+      <article class="shop-card" data-shop-id="2" data-desc="Расширенный альбом с твердой обложкой и выбором фактуры бумаги. Идеален для подарка." data-images="/photo/photo_2026-01-04_18-20-48.jpg,/photo/photo_2026-01-04_17-44-36.jpg" data-rating="1.7" data-reviews="2 255000 отзывов" tabindex="0">
+        <div class="shop-media">
+          <img src="photo/photo_2026-01-04_18-20-48.jpg" alt="product 2" onerror="this.onerror=null;this.src='https://via.placeholder.com/260x170?text=Product+2';" />
+          <button class="shop-fav" aria-label="add to wishlist">&#9825;</button>
+          <span class="shop-badge">Распродажа</span>
+        </div>
+        <div class="shop-body">
+          <h3 class="shop-title">Альбом не простой а крутой очень классный</h3>
+          <div class="shop-price"><strong>208 ₽</strong> <small class="old">915.999.999.999 ₽</small></div>
+          <div class="shop-meta">⭐ 1.7 • 2 отзыва</div>
+        </div>
+      </article>
+    </section>
+
+    <div style="margin-top: 32px; text-align: center;">
+      <a href="html/catalog.html" class="cta-catalog-btn">Весь каталог &rarr;</a>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="shopModal" class="shop-modal" aria-hidden="true">
+      <div class="shop-backdrop" data-close></div>
+      <div class="shop-window" role="dialog" aria-modal="true" aria-label="product detail">
+        <button class="shop-close" aria-label="close">✕</button>
+        <div class="shop-grid">
+          <div class="shop-left">
+            <div class="shop-hero">
+              <img id="shopHeroImg" src="" alt="product image">
+            </div>
+            <div class="shop-thumbs" id="shopThumbs"></div>
+          </div>
+          <div class="shop-right">
+            <h2 id="shopTitle">Product title</h2>
+            <div class="shop-rating">⭐ <span id="shopRating">4.9</span> • <small id="shopReviews">72 Reviews</small></div>
+            <div class="shop-price"><span id="shopPrice">30,02 €</span> <small id="shopOldPrice" class="old">60,04 €</small></div>
+            <p id="shopDesc">Краткое описание товара.</p>
+            <div class="shop-actions">
+              <button id="shopBuy" class="btn">Добавить в корзину</button>
+              <button id="shopOrder" class="btn" style="background: #28a745; margin-left: 10px;">Оформить сейчас</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
 </div>
 
 <script>

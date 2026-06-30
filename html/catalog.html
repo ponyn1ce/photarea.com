@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a4c8e9" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Каталог — Photarea</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/public.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script src="../js/lang.js"></script>
+  <script src="../js/auth.js"></script>
+
+  <style>
+    :root {
+      --nav-bg: rgba(255,255,255,0.45);
+      --nav-border: rgba(255,255,255,0.7);
+      --accent-text: #0f2b3c;
+      --link-muted: #6b8797;
+      --button-bg: #111111;
+      --bg1: #a4c8e9;
+      --bg2: #eaf2f7;
+      --bg3: #ffdcb8;
+    }
+    html, body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      height: auto;
+      overflow-y: auto;
+      display: block;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 40%, var(--bg3) 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="panel" role="banner" aria-label="Photarea navigation">
+    <a class="logo" href="../index.html" aria-label="Photarea home">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#123244" />
+        <path d="M2 17L12 22L22 17" stroke="#123244" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M2 12L12 17L22 12" stroke="#123244" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="brand">Photarea</div>
+    </a>
+
+    <div class="lang" aria-hidden="false">
+      <button class="lang-toggle" aria-haspopup="true" aria-expanded="false" title="Select language">RU</button>
+      <div class="lang-menu" role="menu" aria-label="Language menu">
+        <button class="lang-item selected" role="menuitem" data-lang="EN" data-label="English"><span class="code">EN</span><span class="label">English</span></button>
+        <button class="lang-item" role="menuitem" data-lang="DE" data-label="Deutsch"><span class="code">DE</span><span class="label">Deutsch</span></button>
+        <button class="lang-item" role="menuitem" data-lang="RU" data-label="Русский"><span class="code">RU</span><span class="label">Русский</span></button>
+        <button class="lang-item" role="menuitem" data-lang="UA" data-label="Українська"><span class="code">UA</span><span class="label">Українська</span></button>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-links">
+        <a href="profile.html" data-protected>
+          <img src="../icon/free-icon-font-user-3917711.png" class="nav-icon" alt="">
+          <span data-i18n="nav_profile">Profile</span>
+        </a>
+        <a href="../index.html#Faq_Section">
+          <img src="../icon/free-icon-font-lightbulb-question-10469137.png" class="nav-icon" alt="">
+          <span data-i18n="nav_faq">FAQ</span>
+        </a>
+        <a href="catalog.html">
+          <img src="../icon/free-icon-font-sparkles-17511706.png" class="nav-icon" alt="">
+          <span data-i18n="nav_products">Каталог</span>
+        </a>
+        <a href="support.html">
+          <img src="../icon/free-icon-font-comments-5074207.png" class="nav-icon" alt="">
+          <span data-i18n="nav_contact">Contact</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="cta">
+      <button class="btn" data-i18n="top_cta" onclick="window.location.href='album-guide.html'">Tap to create</button>
+    </div>
+  </header>
+
+  <!-- Catalog Section -->
+  <section class="catalog-section" aria-label="Каталог товаров">
+
+    <div id="shopAlert" class="shop-alert" role="status" aria-live="polite" hidden></div>
+
+    <section id="shop-products" class="shop-products-grid">
+      <!-- Fallback cards (shown if API unavailable) -->
+      <article class="shop-card" data-shop-id="1" data-desc="Минималистичный фотокнига-альбом: плотная матовая обложка, 24 разворота, печать премиум-класса." data-images="/photo/photo_2026-01-04_17-44-36.jpg,/photo/photo_2026-01-04_18-20-48.jpg" data-rating="4.7" data-reviews="5 806 отзывов" tabindex="0">
+        <div class="shop-media">
+          <img src="/photo/photo_2026-01-04_17-44-36.jpg" alt="product 1" onerror="this.onerror=null;this.src='https://via.placeholder.com/260x170?text=Product+1';" />
+          <button class="shop-fav" aria-label="add to wishlist">&#9825;</button>
+          <span class="shop-badge">Распродажа</span>
+        </div>
+        <div class="shop-body">
+          <h3 class="shop-title">Альбом Простой</h3>
+          <div class="shop-price"><strong>99€</strong> <small class="old">2.400€</small></div>
+          <div class="shop-meta">⭐ 4.7 • 5 806 отзывов</div>
+        </div>
+      </article>
+
+      <article class="shop-card" data-shop-id="2" data-desc="Расширенный альбом с твердой обложкой и выбором фактуры бумаги. Идеален для подарка." data-images="/photo/photo_2026-01-04_18-20-48.jpg,/photo/photo_2026-01-04_17-44-36.jpg" data-rating="1.7" data-reviews="2 255000 отзывов" tabindex="0">
+        <div class="shop-media">
+          <img src="/photo/photo_2026-01-04_18-20-48.jpg" alt="product 2" onerror="this.onerror=null;this.src='https://via.placeholder.com/260x170?text=Product+2';" />
+          <button class="shop-fav" aria-label="add to wishlist">&#9825;</button>
+          <span class="shop-badge">Распродажа</span>
+        </div>
+        <div class="shop-body">
+          <h3 class="shop-title">Альбом Премиум</h3>
+          <div class="shop-price"><strong>208 ₽</strong> <small class="old">915 ₽</small></div>
+          <div class="shop-meta">⭐ 1.7 • 2 255 000 отзывов</div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div id="shopModal" class="shop-modal" aria-hidden="true">
+      <div class="shop-backdrop" data-close></div>
+      <div class="shop-window" role="dialog" aria-modal="true" aria-label="product detail">
+        <button class="shop-close" aria-label="close">✕</button>
+        <div class="shop-grid">
+          <div class="shop-left">
+            <div class="shop-hero">
+              <img id="shopHeroImg" src="" alt="product image">
+            </div>
+            <div class="shop-thumbs" id="shopThumbs"></div>
+          </div>
+          <div class="shop-right">
+            <h2 id="shopTitle">Product title</h2>
+            <div class="shop-rating">⭐ <span id="shopRating">4.9</span> • <small id="shopReviews">72 Reviews</small></div>
+            <div class="shop-price"><span id="shopPrice">30,02 €</span> <small id="shopOldPrice" class="old">60,04 €</small></div>
+            <p id="shopDesc">Краткое описание товара.</p>
+            <div class="shop-actions">
+              <button id="shopBuy" class="btn">Добавить в корзину</button>
+              <button id="shopOrder" class="btn" style="background: #28a745; margin-left: 10px;">Оформить сейчас</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script src="../js/products.js"></script>
+
+  <script>
+    (function(){
+      const toggle = document.querySelector('.lang-toggle');
+      const menu = document.querySelector('.lang-menu');
+      const items = Array.from(document.querySelectorAll('.lang-item'));
+      if(!toggle || !menu) return;
+      function close(){ menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+      const savedLang = localStorage.getItem('siteLang');
+      const langMap = { 'english': 'EN', 'russian': 'RU', 'deutsch': 'DE', 'ukrain': 'UA' };
+      let activeCode = 'EN';
+      if (savedLang && langMap[savedLang]) activeCode = langMap[savedLang];
+      toggle.textContent = activeCode;
+      items.forEach(x => {
+        if (x.dataset.lang === activeCode) x.classList.add('selected');
+        else x.classList.remove('selected');
+      });
+      toggle.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen);
+      });
+      items.forEach(i => i.addEventListener('click', () => {
+        const lang = i.dataset.lang;
+        toggle.textContent = lang;
+        items.forEach(x => x.classList.remove('selected'));
+        i.classList.add('selected');
+        close();
+        if(window.setSiteLanguage) window.setSiteLanguage(lang);
+      }));
+      document.addEventListener('click', (e) => {
+        if(!menu.contains(e.target) && !toggle.contains(e.target)) close();
+      });
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape') close(); });
+    })();
+  </script>
+
+</body>
+</html>
